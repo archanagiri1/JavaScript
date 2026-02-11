@@ -282,37 +282,3 @@ console.log(items?.[0]);              // undefined
 console.log(2 + 3 * 4);      // 14 (not 20)
 console.log((2 + 3) * 4);    // 20 (grouping)
 
-// ============================================
-// PRACTICAL EXAMPLES
-// ============================================
-
-// 1. Swap variables using destructuring
-let m = 5, n = 10;
-[m, n] = [n, m];
-console.log(m, n);  // 10, 5
-
-// 2. Default parameters with nullish coalescing
-function createUser(name, role = "user") {
-  return { name, role };
-}
-
-// 3. Object property shorthand
-const username = "Alice";
-const email = "alice@example.com";
-const userObj = { username, email };  // Same as {username: username, email: email}
-
-// 4. Chaining comparisons (careful!)
-const score = 75;
-const passed = score >= 60 && score <= 100;
-
-// 5. Converting to boolean
-const hasValue = !!someVariable;
-
-// 6. Default values with OR
-function greetUser2(name) {
-  name = name || "Guest";
-  return `Hello, ${name}!`;
-}
-
-
-console.log("Operators - Complete!");
