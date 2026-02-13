@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Events - Interactive Examples</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 2.5em;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+    
+    h2 {
+      color: #555;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #667eea;
+      font-size: 1.5em;
+    }
+    
+    .example {
+      margin: 20px 0;
+      padding: 25px;
+      background: #f8f9fa;
+      border-left: 5px solid #667eea;
+      border-radius: 8px;
+    }
+    
+    button {
+      padding: 12px 24px;
+      margin: 5px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    input, textarea {
+      padding: 12px;
+      margin: 5px 0;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      font-size: 16px;
+      width: 100%;
+      max-width: 500px;
+      transition: border-color 0.3s;
+    }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .output {
+      margin-top: 15px;
+      padding: 15px;
+      background: #e8f4f8;
+      border-radius: 6px;
+      min-height: 40px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .box {
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 20px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 12px;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    
+    .box:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    
+    .list {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+    
+    .list-item {
+      padding: 15px;
+      margin: 10px 0;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.3s;
+    }
+    
+    .list-item:hover {
+      border-color: #667eea;
+      transform: translateX(5px);
+    }
+    
+    .delete-btn {
+      background: #f44336;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    .delete-btn:hover {
+      background: #da190b;
+    }
+    
+    .coordinates {
+      padding: 15px;
+      background: #fff3e0;
+      border-radius: 6px;
+      margin-top: 15px;
+      font-family: 'Courier New', monospace;
+      border-left: 4px solid #ff9800;
+    }
+    
+    .form-group {
+      margin: 20px 0;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+    
+    .counter {
+      font-size: 72px;
+      font-weight: bold;
+      color: #667eea;
+      text-align: center;
+      margin: 30px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .success {
+      background: #e8f5e9 !important;
+      border-color: #4caf50 !important;
+    }
+    
+    .error {
+      background: #ffebee !important;
+      border-color: #f44336 !important;
+    }
+    
+    .hint {
+      background: #fff9c4;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      font-size: 14px;
+      border-left: 4px solid #fbc02d;
+    }
+    
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1> JavaScript Events</h1>
+    <p class="subtitle">Interactive Examples & Practice</p>
+    
+    <!-- Example 1: Click Events -->
+    <h2>1. Click Events</h2>
+    <div class="example">
+      <p>Try clicking these buttons:</p>
+      <div class="button-group">
+        <button id="clickBtn">Single Click</button>
+        <button id="dblClickBtn">Double Click</button>
+        <button id="rightClickBtn">Right Click</button>
+      </div>
+      <div id="clickOutput" class="output">Click count: 0</div>
+    </div>
+    
+    <!-- Example 2: Mouse Events -->
+    <h2>2. Mouse Events</h2>
+    <div class="example">
+      <p>Move your mouse over the box and click it:</p>
+      <div class="box" id="mouseBox">Hover & Click Me!</div>
+      <div id="mouseOutput" class="output">Waiting for mouse events...</div>
+    </div>
+    
+    <!-- Example 3: Keyboard Events -->
+    <h2>3. Keyboard Events</h2>
+    <div class="example">
+      <p>Type in the input field. Try <code>Enter</code>, <code>Escape</code>, or <code>Ctrl+S</code>:</p>
+      <input type="text" id="keyInput" placeholder="Type something...">
+      <div id="keyOutput" class="output">Press any key...</div>
+      <div class="hint"> Tip: Try arrow keys, Enter, Escape, or Ctrl combinations!</div>
+    </div>
+    
+    <!-- Example 4: Form Events -->
+    <h2>4. Form Events</h2>
+    <div class="example">
+      <form id="myForm">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="3" placeholder="Enter message"></textarea>
+        </div>
+        <button type="submit">Submit Form</button>
+        <button type="reset">Reset Form</button>
+      </form>
+      <div id="formOutput" class="output">Fill the form and submit...</div>
+    </div>
+    
+    <!-- Example 5: Event Delegation (Todo List) -->
+    <h2>5. Event Delegation - Todo List</h2>
+    <div class="example">
+      <p>Add tasks and delete them. Notice we use ONE event listener for all delete buttons!</p>
+      <div style="display: flex; gap: 10px;">
+        <input type="text" id="todoInput" placeholder="Add new task..." style="flex: 1;">
+        <button id="addTodoBtn">Add Task</button>
+      </div>
+      <ul id="todoList" class="list"></ul>
+      <div class="hint"> Press Enter in the input to add a task quickly!</div>
+    </div>
+    
+    <!-- Example 6: Mouse Coordinates -->
+    <h2>6. Mouse Position Tracking</h2>
+    <div class="example">
+      <p>Move your mouse inside the box to see coordinates:</p>
+      <div class="box" id="coordBox">Move Mouse Here</div>
+      <div id="coordOutput" class="coordinates">Move mouse to see coordinates...</div>
+    </div>
+    
+    <!-- Example 7: Input Validation -->
+    <h2>7. Real-time Input Validation</h2>
+    <div class="example">
+      <p>Password must be at least 8 characters:</p>
+      <input type="password" id="password" placeholder="Enter password (min 8 chars)">
+      <div id="validationOutput" class="output"></div>
+    </div>
+    
+    <!-- Example 8: Counter with Keyboard -->
+    <h2>8. Interactive Counter</h2>
+    <div class="example">
+      <p>Use buttons or keyboard arrows (↑ ↓). Press <code>R</code> to reset:</p>
+      <div class="counter" id="counter">0</div>
+      <div class="button-group">
+        <button id="incrementBtn"> Increment</button>
+        <button id="decrementBtn"> Decrement</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+      <div class="hint"> Use Arrow Up/Down keys or press R to reset!</div>
+    </div>
+    
+    <!-- Example 9: Drag and Drop -->
+    <h2>9. Change Background Color</h2>
+    <div class="example">
+      <p>Click buttons to change the page background:</p>
+      <div class="button-group">
+        <button id="colorRed" style="background: #f44336;">Red</button>
+        <button id="colorBlue" style="background: #2196F3;">Blue</button>
+        <button id="colorGreen" style="background: #4CAF50;">Green</button>
+        <button id="colorPurple" style="background: #9C27B0;">Purple</button>
+        <button id="colorDefault">Default Gradient</button>
+      </div>
+    </div>
+    
+    <!-- Example 10: Scroll Event -->
+    <h2>10. Window Events</h2>
+    <div class="example">
+      <p>Scroll the page or resize the window:</p>
+      <div id="windowOutput" class="output">Window info will appear here...</div>
+    </div>
+  </div>
+
+  <script>
+    console.log(" JavaScript Events Examples Loaded!");
+    
+    // ============================================
+    // EXAMPLE 1: CLICK EVENTS
+    // ============================================
+    let clickCount = 0;
+    const clickBtn = document.getElementById('clickBtn');
+    const dblClickBtn = document.getElementById('dblClickBtn');
+    const rightClickBtn = document.getElementById('rightClickBtn');
+    const clickOutput = document.getElementById('clickOutput');
+    
+    // Single click
+    clickBtn.addEventListener('click', function() {
+      clickCount++;
+      clickOutput.textContent = `Click count: ${clickCount}`;
+      this.style.background = '#4CAF50';
+      setTimeout(() => this.style.background = '', 200);
+    });
+    
+    // Double click
+    dblClickBtn.addEventListener('dblclick', function() {
+      alert(' Double clicked!');
+      this.style.transform = 'scale(1.1)';
+      setTimeout(() => this.style.transform = '', 200);
+    });
+    
+    // Right click (context menu)
+    rightClickBtn.addEventListener('contextmenu', function(event) {
+      event.preventDefault(); // Prevent default context menu
+      alert(' Right clicked!');
+    });
+    
+    // ============================================
+    // EXAMPLE 2: MOUSE EVENTS
+    // ============================================
+    const mouseBox = document.getElementById('mouseBox');
+    const mouseOutput = document.getElementById('mouseOutput');
+    
+    mouseBox.addEventListener('mouseenter', function() {
+      mouseOutput.textContent = 'Mouse entered the box';
+      this.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+    });
+    
+    mouseBox.addEventListener('mouseleave', function() {
+      mouseOutput.textContent = ' Mouse left the box';
+      this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    });
+    
+    mouseBox.addEventListener('mousedown', function() {
+      mouseOutput.textContent = ' Mouse button pressed';
+    });
+    
+    mouseBox.addEventListener('mouseup', function() {
+      mouseOutput.textContent = ' Mouse button released';
+    });
+    
+    mouseBox.addEventListener('click', function() {
+      mouseOutput.textContent = ' Box clicked!';
+      this.style.transform = 'scale(1.05) rotate(360deg)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 500);
+    });
+    
+    // ============================================
+    // EXAMPLE 3: KEYBOARD EVENTS
+    // ============================================
+    const keyInput = document.getElementById('keyInput');
+    const keyOutput = document.getElementById('keyOutput');
+    
+    keyInput.addEventListener('keydown', function(event) {
+      keyOutput.innerHTML = `
+        <strong>⌨ Key Info:</strong><br>
+        Key: <code>${event.key}</code><br>
+        Code: <code>${event.code}</code><br>
+        Ctrl: ${event.ctrlKey ? '✓' : '✗'} | 
+        Shift: ${event.shiftKey ? '✓' : '✗'} | 
+        Alt: ${event.altKey ? '✓' : '✗'}
+      `;
+      
+      // Special key detection
+      if (event.key === 'Enter') {
+        keyOutput.innerHTML += '<br><strong> Enter key pressed!</strong>';
+      } else if (event.key === 'Escape') {
+        keyOutput.innerHTML += '<br><strong> Escape key pressed!</strong>';
+        this.value = '';
+      } else if (event.ctrlKey && event.key === 's') {
+        event.preventDefault();
+        keyOutput.innerHTML += '<br><strong> Ctrl+S detected (save prevented)</strong>';
+      }
+    });
+    
+    // ============================================
+    // EXAMPLE 4: FORM EVENTS
+    // ============================================
+    const myForm = document.getElementById('myForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const formOutput = document.getElementById('formOutput');
+    
+    // Submit event
+    myForm.addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent page reload!
+      
+      const formData = new FormData(myForm);
+      const data = Object.fromEntries(formData);
+      
+      formOutput.innerHTML = `
+        <strong>Form Submitted Successfully!</strong><br>
+        Username: <code>${data.username}</code><br>
+        Email: <code>${data.email}</code><br>
+        Message: <code>${data.message || '(empty)'}</code>
+      `;
+      formOutput.classList.add('success');
+    });
+    
+    // Reset event
+    myForm.addEventListener('reset', function() {
+      formOutput.textContent = ' Form reset!';
+      formOutput.classList.remove('success');
+      setTimeout(() => {
+        formOutput.textContent = 'Fill the form and submit...';
+      }, 2000);
+    });
+    
+    // Focus event
+    usernameInput.addEventListener('focus', function() {
+      this.style.background = '#e3f2fd';
+      formOutput.textContent = ' Username field focused';
+    });
+    
+    usernameInput.addEventListener('blur', function() {
+      this.style.background = '';
+      if (this.value.length < 3) {
+        formOutput.textContent = ' Username should be at least 3 characters';
+        formOutput.classList.add('error');
+      } else {
+        formOutput.classList.remove('error');
+      }
+    });
+    
+    // Input event (real-time)
+    emailInput.addEventListener('input', function() {
+      const email = this.value;
+      if (email.includes('@')) {
+        formOutput.textContent = `✓ Email looks valid: ${email}`;
+        formOutput.classList.remove('error');
+      } else if (email.length > 0) {
+        formOutput.textContent = 'Email must contain @';
+        formOutput.classList.add('error');
+      }
+    });
+    
+    // ============================================
+    // EXAMPLE 5: EVENT DELEGATION (TODO LIST)
+    // ============================================
+    const todoInput = document.getElementById('todoInput');
+    const addTodoBtn = document.getElementById('addTodoBtn');
+    const todoList = document.getElementById('todoList');
+    let todoCount = 0;
+    
+    // Add todo function
+    function addTodo() {
+      const todoText = todoInput.value.trim();
+      if (!todoText) {
+        alert('Please enter a task!');
+        return;
+      }
+      
+      todoCount++;
+      const li = document.createElement('li');
+      li.className = 'list-item';
+      li.innerHTML = `
+        <span><strong>#${todoCount}</strong> ${todoText}</span>
+        <button class="delete-btn">Delete</button>
+      `;
+      
+      todoList.appendChild(li);
+      todoInput.value = '';
+      todoInput.focus();
+    }
+    
+    // Add todo on button click
+    addTodoBtn.addEventListener('click', addTodo);
+    
+    // Add todo on Enter key
+    todoInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        addTodo();
+      }
+    });
+    
+    // EVENT DELEGATION: One listener for all delete buttons!
+    todoList.addEventListener('click', function(event) {
+      if (event.target.classList.contains('delete-btn')) {
+        const item = event.target.closest('.list-item');
+        item.style.transform = 'translateX(100%)';
+        item.style.opacity = '0';
+        setTimeout(() => item.remove(), 300);
+      }
+    });
+    
+    // ============================================
+    // EXAMPLE 6: MOUSE COORDINATES
+    // ============================================
+    const coordBox = document.getElementById('coordBox');
+    const coordOutput = document.getElementById('coordOutput');
+    
+    coordBox.addEventListener('mousemove', function(event) {
+      const rect = this.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      
+      coordOutput.innerHTML = `
+        <strong> Mouse Position:</strong><br>
+        Inside Box → X: ${Math.round(x)}px, Y: ${Math.round(y)}px<br>
+        Viewport → X: ${event.clientX}px, Y: ${event.clientY}px<br>
+        Page → X: ${event.pageX}px, Y: ${event.pageY}px
+      `;
+      
+      // Change box color based on position
+      const hue = Math.round((x / rect.width) * 360);
+      this.style.background = `hsl(${hue}, 70%, 60%)`;
+    });
+    
+    coordBox.addEventListener('mouseleave', function() {
+      this.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+      coordOutput.innerHTML = 'Move mouse to see coordinates...';
+    });
+    
+    // ============================================
+    // EXAMPLE 7: INPUT VALIDATION
+    // ============================================
+    const passwordInput = document.getElementById('password');
+    const validationOutput = document.getElementById('validationOutput');
+    
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      const length = password.length;
+      
+      if (length === 0) {
+        validationOutput.textContent = '';
+        validationOutput.className = 'output';
+      } else if (length < 8) {
+        validationOutput.textContent = `Too short! Need ${8 - length} more characters.`;
+        validationOutput.classList.add('error');
+      } else {
+        validationOutput.textContent = ' Password length is good!';
+        validationOutput.classList.add('success');
+        validationOutput.classList.remove('error');
+      }
+    });
+    
+    // ============================================
+    // EXAMPLE 8: COUNTER
+    // ============================================
+    let count = 0;
+    const counter = document.getElementById('counter');
+    const incrementBtn = document.getElementById('incrementBtn');
+    const decrementBtn = document.getElementById('decrementBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    
+    function updateCounter() {
+      counter.textContent = count;
+      counter.style.color = count > 0 ? '#4CAF50' : count < 0 ? '#f44336' : '#667eea';
+      counter.style.transform = 'scale(1.1)';
+      setTimeout(() => counter.style.transform = 'scale(1)', 200);
+    }
+    
+    incrementBtn.addEventListener('click', function() {
+      count++;
+      updateCounter();
+    });
+    
+    decrementBtn.addEventListener('click', function() {
+      count--;
+      updateCounter();
+    });
+    
+    resetBtn.addEventListener('click', function() {
+      count = 0;
+      updateCounter();
+    });
+    
+    // Keyboard shortcuts for counter
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'ArrowUp') {
+        count++;
+        updateCounter();
+      } else if (event.key === 'ArrowDown') {
+        count--;
+        updateCounter();
+      } else if (event.key === 'r' || event.key === 'R') {
+        count = 0;
+        updateCounter();
+      }
+    });
+    
+    // ============================================
+    // EXAMPLE 9: BACKGROUND COLOR
+    // ============================================
+    const body = document.body;
+    
+    document.getElementById('colorRed').addEventListener('click', function() {
+      body.style.background = '#f44336';
+    });
+    
+    document.getElementById('colorBlue').addEventListener('click', function() {
+      body.style.background = '#2196F3';
+    });
+    
+    document.getElementById('colorGreen').addEventListener('click', function() {
+      body.style.background = '#4CAF50';
+    });
+    
+    document.getElementById('colorPurple').addEventListener('click', function() {
+      body.style.background = '#9C27B0';
+    });
+    
+    document.getElementById('colorDefault').addEventListener('click', function() {
+      body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+    });
+    
+    // ============================================
+    // EXAMPLE 10: WINDOW EVENTS
+    // ============================================
+    const windowOutput = document.getElementById('windowOutput');
+    
+    // Debounce function
+    function debounce(func, delay) {
+      let timeoutId;
+      return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+    
+    // Scroll event (debounced)
+    const handleScroll = debounce(function() {
+      windowOutput.innerHTML = `
+        <strong>Scroll Position:</strong><br>
+        Vertical: ${Math.round(window.scrollY)}px<br>
+        Horizontal: ${Math.round(window.scrollX)}px
+      `;
+    }, 100);
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Resize event (debounced)
+    const handleResize = debounce(function() {
+      windowOutput.innerHTML = `
+        <strong>Window Size:</strong><br>
+        Width: ${window.innerWidth}px<br>
+        Height: ${window.innerHeight}px
+      `;
+    }, 200);
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Initial window info
+    handleResize();
+    
+    // Page load event
+    window.addEventListener('load', function() {
+      console.log(' Page fully loaded!');
+    });
+    
+    console.log('All event listeners attached successfully!');
+  </script>
+</body>
+</html> 
